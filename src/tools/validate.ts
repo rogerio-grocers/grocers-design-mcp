@@ -20,31 +20,30 @@ function asTextJson(value: unknown) {
   };
 }
 
-const EMOJI_RE =
-  /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}\u{1F900}-\u{1F9FF}]/u;
+const EMOJI_PATTERN = String.raw`[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B00}-\u{2BFF}\u{1F1E6}-\u{1F1FF}]|\u{FE0F}`;
 
-const BRAND_REDS = new Set([
-  "#fff1f1",
-  "#ffe1e1",
-  "#ffc7c7",
-  "#ffa0a0",
-  "#ff6c6c",
-  "#ff4444",
-  "#ed1f1f",
-  "#c81616",
-  "#a51515",
-  "#881818",
-]);
+const BRAND_REDS_MAP: Record<string, string> = {
+  "#fff1f1": "var(--color-brand-50)",
+  "#ffe1e1": "var(--color-brand-100)",
+  "#ffc7c7": "var(--color-brand-200)",
+  "#ffa0a0": "var(--color-brand-300)",
+  "#ff6c6c": "var(--color-brand-400)",
+  "#ff4444": "var(--color-brand-500)",
+  "#ed1f1f": "var(--color-brand-600)",
+  "#c81616": "var(--color-brand-700)",
+  "#a51515": "var(--color-brand-800)",
+  "#881818": "var(--color-brand-900)",
+};
 
-const INK_HEXES = new Set([
-  "#0b0119",
-  "#14081f",
-  "#1c1028",
-  "#2b1f3a",
-  "#4a3f59",
-  "#7a7184",
-  "#c5c1cb",
-]);
+const INK_HEXES_MAP: Record<string, string> = {
+  "#0b0119": "var(--color-ink)",
+  "#14081f": "var(--color-ink-95)",
+  "#1c1028": "var(--color-ink-90)",
+  "#2b1f3a": "var(--color-ink-80)",
+  "#4a3f59": "var(--color-ink-60)",
+  "#7a7184": "var(--color-ink-40)",
+  "#c5c1cb": "var(--color-ink-20)",
+};
 
 const VALID_RADII_PX = new Set([4, 6, 10, 14, 18, 24]);
 const VALID_SPACING_PX = new Set([0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96]);
@@ -106,18 +105,30 @@ function pushAll(out: Violation[], items: Violation[]) {
   for (const i of items) out.push(i);
 }
 
+function extractContext(snippet: string, idx: number, matchLen: number, radius = 30): string {
+  const start = Math.max(0, idx - radius);
+  const end = Math.min(snippet.length, idx + matchLen + radius);
+  let s = snippet.slice(start, end).replace(/\s+/g, " ").trim();
+  if (start > 0) s = "…" + s;
+  if (end < snippet.length) s = s + "…";
+  return s;
+}
+
 function checkEmoji(snippet: string): Violation[] {
   const out: Violation[] = [];
-  const re = new RegExp(EMOJI_RE.source, "gu");
+  const re = new RegExp(EMOJI_PATTERN, "gu");
   let m: RegExpExecArray | null;
   while ((m = re.exec(snippet)) !== null) {
+    // Skip standalone VS16 (️) — only flag when paired with a base char,
+    // already covered by the first range. Also skip if the match is a digit/letter selector.
+    if (m[0] === "️" && m.index === 0) continue;
     const loc = locate(snippet, m.index);
     out.push({
       rule: "no-emoji",
       severity: "error",
       ...loc,
       snippet: m[0],
-      message: "Emoji encontrado. O DS Grocers não usa emoji em UI.",
+      message: `Emoji ${m[0]} encontrado. O DS Grocers não usa emoji em UI.`,
       suggestion: "Substitua por um ícone Lucide adequado, com stroke 2px e tamanho 20px/24px.",
     });
   }
@@ -130,7 +141,9 @@ function checkBrandHexHardcode(snippet: string): Violation[] {
   let m: RegExpExecArray | null;
   while ((m = re.exec(snippet)) !== null) {
     const hex = m[0].toLowerCase();
-    if (BRAND_REDS.has(hex)) {
+    const brandToken = BRAND_REDS_MAP[hex];
+    const inkToken = INK_HEXES_MAP[hex];
+    if (brandToken) {
       const loc = locate(snippet, m.index);
       out.push({
         rule: "no-hardcoded-brand-color",
@@ -138,9 +151,9 @@ function checkBrandHexHardcode(snippet: string): Violation[] {
         ...loc,
         snippet: m[0],
         message: `Hex ${hex} é um token brand do DS Grocers — não embuta valor literal.`,
-        suggestion: `Use a CSS var equivalente (ex. var(--color-brand-500) para #ff4444).`,
+        suggestion: `Use ${brandToken}.`,
       });
-    } else if (INK_HEXES.has(hex)) {
+    } else if (inkToken) {
       const loc = locate(snippet, m.index);
       out.push({
         rule: "no-hardcoded-ink-color",
@@ -148,9 +161,27 @@ function checkBrandHexHardcode(snippet: string): Violation[] {
         ...loc,
         snippet: m[0],
         message: `Hex ${hex} é um token ink do DS Grocers — não embuta valor literal.`,
-        suggestion: `Use var(--color-ink) ou var(--color-ink-XX) conforme a escala.`,
+        suggestion: `Use ${inkToken}.`,
       });
     }
+  }
+  return out;
+}
+
+function checkArbitraryTailwind(snippet: string): Violation[] {
+  const out: Violation[] = [];
+  const re = /\b(bg|text|border|p|px|py|pt|pr|pb|pl|m|mx|my|mt|mr|mb|ml|w|h|min-w|min-h|max-w|max-h|gap|rounded|shadow|font|leading|tracking)-\[([^\]]+)\]/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(snippet)) !== null) {
+    out.push({
+      rule: "no-arbitrary-tailwind",
+      severity: "warning",
+      ...locate(snippet, m.index),
+      snippet: m[0],
+      message: `Valor Tailwind arbitrário '${m[0]}'. Escape do design system.`,
+      suggestion:
+        "Use uma classe Tailwind mapeada para os tokens Grocers, ou aplique o token CSS via style={{}}.",
+    });
   }
   return out;
 }
@@ -168,14 +199,13 @@ function checkRedAsError(snippet: string): Violation[] {
   for (const kw of ERROR_KEYWORDS) {
     const idx = lower.indexOf(kw);
     if (idx === -1) continue;
-    // require keyword reasonably close to a red reference
     const window = lower.slice(Math.max(0, idx - 120), idx + kw.length + 120);
     if (/var\(--color-brand|#ff4444|#ed1f1f|#c81616|bg-red|text-red/.test(window)) {
       out.push({
         rule: "red-is-not-error",
         severity: "warning",
         ...locate(snippet, idx),
-        snippet: snippet.slice(Math.max(0, idx - 40), idx + kw.length + 40).trim(),
+        snippet: extractContext(snippet, idx, kw.length),
         message:
           "Uso de vermelho da marca em contexto de erro/validação. " +
           "Neste DS, vermelho é cor de marca/CTA, não cor de erro.",
@@ -207,7 +237,7 @@ function checkDestructiveButton(snippet: string): Violation[] {
     rule: "destructive-uses-ink-not-red",
     severity: "warning",
     ...locate(snippet, idx),
-    snippet: snippet.slice(Math.max(0, idx - 40), idx + 80).trim(),
+    snippet: extractContext(snippet, idx, destructiveCue.length),
     message:
       "Ação destrutiva pintada com vermelho da marca. O padrão Grocers é ink filled + type-to-confirm.",
     suggestion:
@@ -375,6 +405,7 @@ export function registerValidateTool(server: McpServer, _index: DesignSystemInde
 
       pushAll(violations, checkEmoji(snippet));
       pushAll(violations, checkBrandHexHardcode(snippet));
+      pushAll(violations, checkArbitraryTailwind(snippet));
       pushAll(violations, checkRedAsError(snippet));
       pushAll(violations, checkDestructiveButton(snippet));
       pushAll(violations, checkOffScaleRadii(snippet));
