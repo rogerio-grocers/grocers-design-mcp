@@ -74,39 +74,49 @@ function parseCss(css: string): { tokens: Token[]; semanticClasses: SemanticClas
   const tokens: Token[] = [];
   const semanticClasses: SemanticClass[] = [];
 
-  // Match :root { ... } block
+  const SECTION_DIVIDER_RE = /\/\*\s*[─-]{2,}.*?[─-]{2,}\s*\*\//;
+  const INLINE_COMMENT_RE = /^\/\*\s*(.+?)\s*\*\/$/;
+  const DECL_RE = /^(--[a-zA-Z0-9-]+)\s*:\s*([^;]+?)\s*;(?:\s*\/\*\s*(.+?)\s*\*\/)?\s*$/;
+
   const rootMatch = css.match(/:root\s*\{([\s\S]*?)\n\}/);
   if (rootMatch) {
-    const rootBody = rootMatch[1];
-    // Strip block comments, but track most-recent comment per line for notes
-    const lines = rootBody.split("\n");
+    const lines = rootMatch[1].split("\n");
     let pendingNote: string | undefined;
     for (const rawLine of lines) {
       const line = rawLine.trim();
-      // Section dividers like /* ── Color • Brand ───── */
-      const sectionMatch = line.match(/\/\*\s*[─-]+\s*(.+?)\s*[─-]+\s*\*\//);
-      if (sectionMatch) {
-        pendingNote = sectionMatch[1].replace(/[─•─]+/g, "").trim();
+      if (!line) continue;
+
+      // Section divider — reset note, do not capture as note text
+      if (SECTION_DIVIDER_RE.test(line)) {
+        pendingNote = undefined;
         continue;
       }
-      // Inline comment-only line
-      const inlineCommentMatch = line.match(/^\/\*\s*(.+?)\s*\*\/$/);
+
+      // Standalone comment line → use as note for the next declaration
+      const inlineCommentMatch = line.match(INLINE_COMMENT_RE);
       if (inlineCommentMatch) {
-        pendingNote = inlineCommentMatch[1];
+        pendingNote = inlineCommentMatch[1].trim();
         continue;
       }
-      const declMatch = line.match(/^(--[a-zA-Z0-9-]+)\s*:\s*([^;]+?)\s*;(?:\s*\/\*\s*(.+?)\s*\*\/)?\s*$/);
+
+      const declMatch = line.match(DECL_RE);
       if (declMatch) {
         const [, name, value, trailingComment] = declMatch;
         const { category, group } = detectCategory(name);
+        const notes = (trailingComment?.trim() ?? pendingNote) || undefined;
         tokens.push({
           name,
           value: value.trim(),
           category,
           group,
-          notes: trailingComment ?? pendingNote,
+          notes,
         });
+        pendingNote = undefined; // do not cascade to subsequent tokens
+        continue;
       }
+
+      // Any other content (e.g. close brace of nested rule) clears pending
+      pendingNote = undefined;
     }
   }
 

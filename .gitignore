@@ -3,6 +3,7 @@ dist/
 *.log
 .env
 .env.local
+.local-token
 .DS_Store
 .idea/
 .vscode/

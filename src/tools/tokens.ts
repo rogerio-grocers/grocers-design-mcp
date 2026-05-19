@@ -52,6 +52,7 @@ export function registerTokenTools(server: McpServer, index: DesignSystemIndex) 
           value: t.value,
           category: t.category,
           group: t.group,
+          notes: t.notes,
         })),
       });
     },
