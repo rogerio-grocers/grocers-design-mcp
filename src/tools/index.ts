@@ -5,6 +5,7 @@ import { registerComponentTools } from "./components.js";
 import { registerFoundationTools } from "./foundations.js";
 import { registerSearchTool } from "./search.js";
 import { registerValidateTool } from "./validate.js";
+import { registerSuggestTool } from "./suggest.js";
 
 export function registerTools(server: McpServer, index: DesignSystemIndex) {
   registerTokenTools(server, index);
@@ -12,4 +13,5 @@ export function registerTools(server: McpServer, index: DesignSystemIndex) {
   registerFoundationTools(server, index);
   registerSearchTool(server, index);
   registerValidateTool(server, index);
+  registerSuggestTool(server, index);
 }
