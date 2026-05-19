@@ -116,12 +116,18 @@ function extractContext(snippet: string, idx: number, matchLen: number, radius =
 
 function checkEmoji(snippet: string): Violation[] {
   const out: Violation[] = [];
-  const re = new RegExp(EMOJI_PATTERN, "gu");
+  // Match emoji bases including modifier sequences and VS16 (U+FE0F) to dedupe
+  // composed glyphs like ☠️ (U+2620 + U+FE0F) into one violation.
+  const re = new RegExp(`(?:${EMOJI_PATTERN})(?:\\u{FE0F})?(?:\\u{1F3FB}-\\u{1F3FF})?`, "gu");
+  let lastEndIdx = -1;
   let m: RegExpExecArray | null;
   while ((m = re.exec(snippet)) !== null) {
-    // Skip standalone VS16 (️) — only flag when paired with a base char,
-    // already covered by the first range. Also skip if the match is a digit/letter selector.
-    if (m[0] === "️" && m.index === 0) continue;
+    if (!m[0]) continue;
+    // Skip a bare VS16 by itself
+    if (m[0] === "\u{FE0F}") continue;
+    // Skip if this overlaps the previous match (shouldn't with /g, but defensive)
+    if (m.index < lastEndIdx) continue;
+    lastEndIdx = m.index + m[0].length;
     const loc = locate(snippet, m.index);
     out.push({
       rule: "no-emoji",

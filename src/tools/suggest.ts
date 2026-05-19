@@ -96,7 +96,22 @@ const INTENTS: IntentEntry[] = [
   },
   {
     id: "filter-tabs",
-    keywords: ["filter tabs", "abas filtro", "tabs com contador", "filter pills", "filtros pílula"],
+    keywords: [
+      "filter tabs",
+      "abas filtro",
+      "abas de filtro",
+      "tabs com contador",
+      "tabs contador",
+      "tab contador",
+      "filter pills",
+      "filtros pílula",
+      "filtros pilula",
+      "filter bar",
+      "filter chips",
+      "chips de filtro",
+      "abas",
+      "tabs",
+    ],
     kind: "component",
     component: { kit: "admin", name: "FilterTabs" },
     rationale:
