@@ -1,0 +1,23 @@
+/* Shared card host for /preview/*.html — keeps the actual content tight */
+@import url('../colors_and_type.css');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-canvas);
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  padding: 24px;
+  box-sizing: border-box;
+}
+* { box-sizing: border-box; }
+.row { display: flex; gap: 16px; align-items: stretch; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.swatch {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(16,24,40,0.06);
+}

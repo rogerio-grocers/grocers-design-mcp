@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head>
+<body style="padding:18px 24px;display:flex;gap:14px;background:var(--bg-canvas)">
+  <div style="flex:1;background:#fff;border:1px solid var(--border-1);border-radius:14px;padding:18px 20px;display:flex;gap:18px;align-items:center;box-shadow:var(--shadow-xs)">
+    <svg viewBox="0 0 64 64" style="width:96px;height:96px;flex:0 0 96px">
+      <circle cx="32" cy="32" r="24" stroke="var(--bg-subtle)" stroke-width="10" fill="none"/>
+      <circle cx="32" cy="32" r="24" stroke="var(--color-brand-500)" stroke-width="10" fill="none" stroke-dasharray="76 200" stroke-dashoffset="0" transform="rotate(-90 32 32)"/>
+      <circle cx="32" cy="32" r="24" stroke="var(--color-ink)"  stroke-width="10" fill="none" stroke-dasharray="36 200" stroke-dashoffset="-76" transform="rotate(-90 32 32)"/>
+      <circle cx="32" cy="32" r="24" stroke="var(--color-warning-fg)" stroke-width="10" fill="none" stroke-dasharray="28 200" stroke-dashoffset="-112" transform="rotate(-90 32 32)"/>
+      <circle cx="32" cy="32" r="24" stroke="var(--color-info-fg)" stroke-width="10" fill="none" stroke-dasharray="11 200" stroke-dashoffset="-140" transform="rotate(-90 32 32)"/>
+    </svg>
+    <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+      <div style="font:500 12px/1 var(--font-sans);color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em">Mix por categoria</div>
+      <div style="display:flex;align-items:center;gap:8px;font:400 13px/1 var(--font-sans);color:var(--fg-1)">
+        <span style="width:8px;height:8px;border-radius:2px;background:var(--color-brand-500)"></span>
+        <span style="flex:1">Hortifruti</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--fg-2);font-weight:500">50%</span>
+      </div><div style="display:flex;align-items:center;gap:8px;font:400 13px/1 var(--font-sans);color:var(--fg-1)">
+        <span style="width:8px;height:8px;border-radius:2px;background:var(--color-ink)"></span>
+        <span style="flex:1">Padaria</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--fg-2);font-weight:500">24%</span>
+      </div><div style="display:flex;align-items:center;gap:8px;font:400 13px/1 var(--font-sans);color:var(--fg-1)">
+        <span style="width:8px;height:8px;border-radius:2px;background:var(--color-warning-fg)"></span>
+        <span style="flex:1">Bebidas</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--fg-2);font-weight:500">18%</span>
+      </div><div style="display:flex;align-items:center;gap:8px;font:400 13px/1 var(--font-sans);color:var(--fg-1)">
+        <span style="width:8px;height:8px;border-radius:2px;background:var(--color-info-fg)"></span>
+        <span style="flex:1">Outros</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--fg-2);font-weight:500">8%</span>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;background:#fff;border:1px solid var(--border-1);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-xs)">
+    <div style="font:500 12px/1 var(--font-sans);color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em">Pedidos por hora</div>
+    <svg viewBox="0 0 220 70" style="width:100%;height:70px;margin-top:4px">
+      <rect x="4" y="56" width="12" height="10" rx="2" fill="var(--bg-muted)"/><rect x="22" y="50" width="12" height="16" rx="2" fill="var(--bg-muted)"/><rect x="40" y="44" width="12" height="22" rx="2" fill="var(--bg-muted)"/><rect x="58" y="34" width="12" height="32" rx="2" fill="var(--bg-muted)"/><rect x="76" y="18" width="12" height="48" rx="2" fill="var(--bg-muted)"/><rect x="94" y="6" width="12" height="60" rx="2" fill="var(--color-brand-500)"/><rect x="112" y="24" width="12" height="42" rx="2" fill="var(--bg-muted)"/><rect x="130" y="38" width="12" height="28" rx="2" fill="var(--bg-muted)"/><rect x="148" y="48" width="12" height="18" rx="2" fill="var(--bg-muted)"/><rect x="166" y="36" width="12" height="30" rx="2" fill="var(--bg-muted)"/><rect x="184" y="14" width="12" height="52" rx="2" fill="var(--bg-muted)"/><rect x="202" y="26" width="12" height="40" rx="2" fill="var(--bg-muted)"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font:400 10px/1 var(--font-mono);color:var(--fg-4)">
+      <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span>
+    </div>
+  </div>
+</body></html>

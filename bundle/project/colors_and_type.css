@@ -1,0 +1,186 @@
+/* ============================================================================
+   Grocers Design System — Tokens
+   Foundations: colors, type, spacing, radii, shadows
+   ============================================================================ */
+
+/* ─── Fonts ──────────────────────────────────────────────────────────────────
+   Production face: Neue Montreal (Pangram Pangram). Files in /fonts/.
+   Mono is Geist Mono from Google Fonts — a separate face used only for SKUs,
+   prices in dense tables, and code.
+   ─────────────────────────────────────────────────────────────────────────── */
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Light.otf')        format('opentype'); font-weight: 300; font-style: normal;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-LightItalic.otf')  format('opentype'); font-weight: 300; font-style: italic;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Regular.otf')      format('opentype'); font-weight: 400; font-style: normal;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Italic.otf')       format('opentype'); font-weight: 400; font-style: italic;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Medium.otf')       format('opentype'); font-weight: 500; font-style: normal;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-MediumItalic.otf') format('opentype'); font-weight: 500; font-style: italic;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Bold.otf')         format('opentype'); font-weight: 600; font-style: normal;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-Bold.otf')         format('opentype'); font-weight: 700; font-style: normal;  font-display: swap; }
+@font-face { font-family: 'Neue Montreal'; src: url('fonts/NeueMontreal-BoldItalic.otf')   format('opentype'); font-weight: 700; font-style: italic;  font-display: swap; }
+
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Caveat:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── Color • Brand ────────────────────────────────────────────────────── */
+  /* Primary — Grocers red. The hero, the dot in the logo, the only saturated
+     color that ever owns a CTA. */
+  --color-brand-50:  #fff1f1;
+  --color-brand-100: #ffe1e1;
+  --color-brand-200: #ffc7c7;
+  --color-brand-300: #ffa0a0;
+  --color-brand-400: #ff6c6c;
+  --color-brand-500: #ff4444;   /* primary */
+  --color-brand-600: #ed1f1f;   /* hover */
+  --color-brand-700: #c81616;   /* press */
+  --color-brand-800: #a51515;
+  --color-brand-900: #881818;
+
+  /* ── Color • Ink (the brand's deep plum/near-black) ───────────────────── */
+  /* #0B0119 — used as inverse surface AND as the darkest text token.
+     Cool-purple cast, sits in opposition to the warm brand red. */
+  --color-ink:        #0B0119;
+  --color-ink-95:     #14081f;
+  --color-ink-90:     #1c1028;
+  --color-ink-80:     #2b1f3a;
+  --color-ink-60:     #4a3f59;
+  --color-ink-40:     #7a7184;
+  --color-ink-20:     #c5c1cb;
+
+  /* ── Color • Neutrals (cool gray with faint plum undertone) ───────────── */
+  --color-gray-0:   #ffffff;
+  --color-gray-25:  #fcfbfd;
+  --color-gray-50:  #f8f6fa;
+  --color-gray-100: #f2eff5;
+  --color-gray-200: #e6e2ec;
+  --color-gray-300: #cfcad7;
+  --color-gray-400: #9d96aa;
+  --color-gray-500: #6e6678;
+  --color-gray-600: #4e475a;
+  --color-gray-700: #34303f;
+  --color-gray-800: #1f1a2a;
+  --color-gray-900: var(--color-ink);
+
+  /* ── Color • Semantic ─────────────────────────────────────────────────── */
+  --color-success-bg:    #ecfdf3;
+  --color-success-fg:    #027a48;
+  --color-success-border:#abefc6;
+
+  --color-warning-bg:    #fffaeb;
+  --color-warning-fg:    #b54708;
+  --color-warning-border:#fedf89;
+
+  --color-danger-bg:     #fff7ed;
+  --color-danger-fg:     #9a3412;
+  --color-danger-border: #fed7aa;
+
+  --color-info-bg:       #f4f0ff;
+  --color-info-fg:       #5b3dd0;
+  --color-info-border:   #d9cdff;
+
+  /* ── Color • Roles ────────────────────────────────────────────────────── */
+  --bg-canvas:        var(--color-gray-50);
+  --bg-surface:       var(--color-gray-0);
+  --bg-subtle:        var(--color-gray-100);
+  --bg-muted:         var(--color-gray-200);
+  --bg-inverse:       var(--color-ink);
+  --bg-inverse-2:     var(--color-ink-90);
+
+  --fg-1:             var(--color-ink);          /* primary text */
+  --fg-2:             var(--color-gray-700);     /* secondary text */
+  --fg-3:             var(--color-gray-500);     /* tertiary / meta */
+  --fg-4:             var(--color-gray-400);     /* placeholder / disabled */
+  --fg-inverse:       var(--color-gray-0);
+  --fg-inverse-2:     var(--color-ink-20);
+  --fg-brand:         var(--color-brand-500);
+  --fg-link:          var(--color-brand-600);
+
+  --border-1:         var(--color-gray-200);
+  --border-2:         var(--color-gray-300);
+  --border-inverse:   rgba(255,255,255,0.10);
+  --border-focus:     var(--color-ink);
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-sans:  'Neue Montreal', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:  'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-script: 'Caveat', cursive; /* for handwritten logo-style accents only */
+
+  --fs-12: 12px;  --lh-12: 16px;
+  --fs-13: 13px;  --lh-13: 18px;
+  --fs-14: 14px;  --lh-14: 20px;
+  --fs-15: 15px;  --lh-15: 22px;
+  --fs-16: 16px;  --lh-16: 24px;
+  --fs-18: 18px;  --lh-18: 26px;
+  --fs-20: 20px;  --lh-20: 28px;
+  --fs-24: 24px;  --lh-24: 32px;
+  --fs-30: 30px;  --lh-30: 38px;
+  --fs-36: 36px;  --lh-36: 44px;
+  --fs-48: 48px;  --lh-48: 56px;
+  --fs-60: 60px;  --lh-60: 64px;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:   0.02em;
+
+  /* ── Spacing (4px scale) ──────────────────────────────────────────────── */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ── Radii ────────────────────────────────────────────────────────────── */
+  --radius-xs:  4px;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* ── Shadows ──────────────────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(11, 1, 25, 0.06);
+  --shadow-sm: 0 1px 3px rgba(11, 1, 25, 0.10), 0 1px 2px rgba(11, 1, 25, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(11, 1, 25, 0.10), 0 2px 4px -2px rgba(11, 1, 25, 0.06);
+  --shadow-lg: 0 12px 16px -4px rgba(11, 1, 25, 0.08), 0 4px 6px -2px rgba(11, 1, 25, 0.03);
+  --shadow-xl: 0 20px 24px -4px rgba(11, 1, 25, 0.10), 0 8px 8px -4px rgba(11, 1, 25, 0.04);
+  --shadow-focus: 0 0 0 4px rgba(11, 1, 25, 0.18);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --ease-standard: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --ease-emphasized: cubic-bezier(0.2, 0.0, 0, 1.2);
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 240ms;
+}
+
+/* ─── Semantic type roles ──────────────────────────────────────────────────── */
+.t-display-xl { font: var(--fw-semibold) var(--fs-60)/var(--lh-60) var(--font-sans); letter-spacing: var(--tracking-tight); color: var(--fg-1); }
+.t-display    { font: var(--fw-semibold) var(--fs-48)/var(--lh-48) var(--font-sans); letter-spacing: var(--tracking-tight); color: var(--fg-1); }
+.t-h1         { font: var(--fw-semibold) var(--fs-36)/var(--lh-36) var(--font-sans); letter-spacing: var(--tracking-snug); color: var(--fg-1); }
+.t-h2         { font: var(--fw-semibold) var(--fs-30)/var(--lh-30) var(--font-sans); letter-spacing: var(--tracking-snug); color: var(--fg-1); }
+.t-h3         { font: var(--fw-semibold) var(--fs-24)/var(--lh-24) var(--font-sans); color: var(--fg-1); }
+.t-h4         { font: var(--fw-semibold) var(--fs-20)/var(--lh-20) var(--font-sans); color: var(--fg-1); }
+.t-h5         { font: var(--fw-semibold) var(--fs-18)/var(--lh-18) var(--font-sans); color: var(--fg-1); }
+.t-eyebrow    { font: var(--fw-medium) var(--fs-12)/var(--lh-12) var(--font-sans); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--fg-brand); }
+.t-body-lg    { font: var(--fw-regular) var(--fs-18)/var(--lh-18) var(--font-sans); color: var(--fg-2); }
+.t-body       { font: var(--fw-regular) var(--fs-16)/var(--lh-16) var(--font-sans); color: var(--fg-1); }
+.t-body-sm    { font: var(--fw-regular) var(--fs-14)/var(--lh-14) var(--font-sans); color: var(--fg-2); }
+.t-meta       { font: var(--fw-medium) var(--fs-13)/var(--lh-13) var(--font-sans); color: var(--fg-3); }
+.t-caption    { font: var(--fw-regular) var(--fs-12)/var(--lh-12) var(--font-sans); color: var(--fg-3); }
+.t-mono       { font: var(--fw-regular) var(--fs-13)/var(--lh-13) var(--font-mono); color: var(--fg-2); }
+.t-price      { font: var(--fw-semibold) var(--fs-18)/var(--lh-18) var(--font-sans); font-variant-numeric: tabular-nums; color: var(--fg-1); }
+.t-price-sm   { font: var(--fw-semibold) var(--fs-14)/var(--lh-14) var(--font-sans); font-variant-numeric: tabular-nums; color: var(--fg-1); }

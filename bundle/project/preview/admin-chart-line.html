@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head>
+<body style="padding:18px 24px;display:flex;flex-direction:column;background:var(--bg-canvas)">
+  <div style="background:#fff;border:1px solid var(--border-1);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow-xs)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div>
+        <div style="font:500 12px/1 var(--font-sans);color:var(--fg-3)">GMV últimos 7 dias</div>
+        <div style="font:500 22px/1 var(--font-sans);letter-spacing:-0.02em;color:var(--fg-1);margin-top:6px;font-variant-numeric:tabular-nums">R$ 1.284.302</div>
+      </div>
+      <div style="display:flex;gap:14px;font:500 11px/1 var(--font-sans);color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em">
+        <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-ink)"></span>Esta semana</span>
+        <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-brand-300)"></span>Semana passada</span>
+      </div>
+    </div>
+    <svg viewBox="0 0 560 140" style="width:100%;height:140px">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#0B0119" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#0B0119" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g stroke="var(--border-1)" stroke-dasharray="3 4">
+        <line x1="0" y1="30" x2="560" y2="30"/><line x1="0" y1="70" x2="560" y2="70"/><line x1="0" y1="110" x2="560" y2="110"/>
+      </g>
+      <path d="M0,90 C60,70 100,75 160,55 C220,35 260,60 320,42 C380,24 420,40 480,28 L560,18" fill="none" stroke="#0B0119" stroke-width="2" stroke-linecap="round"/>
+      <path d="M0,90 C60,70 100,75 160,55 C220,35 260,60 320,42 C380,24 420,40 480,28 L560,18 L560,140 L0,140 Z" fill="url(#g1)"/>
+      <path d="M0,100 C60,95 100,86 160,80 C220,72 260,82 320,72 C380,60 420,72 480,58 L560,52" fill="none" stroke="var(--color-brand-300)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 5"/>
+      <g font-size="10" font-family="var(--font-sans)" fill="var(--fg-3)">
+        <text x="10" y="135">Seg</text><text x="102" y="135">Ter</text><text x="194" y="135">Qua</text><text x="286" y="135">Qui</text><text x="378" y="135">Sex</text><text x="470" y="135">Sáb</text><text x="562" y="135">Dom</text>
+      </g>
+    </svg>
+  </div>
+</body></html>

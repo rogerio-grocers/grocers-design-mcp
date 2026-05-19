@@ -1,0 +1,37 @@
+// Fixture catalog — cosmetic only.
+window.CATS = [
+  { id: 'all',       name: 'Tudo',         icon: 'Grid' },
+  { id: 'hortifruti',name: 'Hortifruti',   icon: 'Apple' },
+  { id: 'padaria',   name: 'Padaria',      icon: 'Croissant' },
+  { id: 'acougue',   name: 'Açougue',      icon: 'Beef' },
+  { id: 'laticinios',name: 'Laticínios',   icon: 'Milk' },
+  { id: 'bebidas',   name: 'Bebidas',      icon: 'Wine' },
+  { id: 'mercearia', name: 'Mercearia',    icon: 'Package' },
+  { id: 'congelados',name: 'Congelados',   icon: 'Snowflake' },
+  { id: 'limpeza',   name: 'Limpeza',      icon: 'Spray' },
+  { id: 'higiene',   name: 'Higiene',      icon: 'HandWash' },
+  { id: 'petshop',   name: 'Pet Shop',     icon: 'Paw' },
+];
+
+window.PRODUCTS = [
+  { id: 1, cat: 'hortifruti', n: 'Banana Prata',          u: 'penca · 1kg',   p: 6.49,  was: null,  tag: null },
+  { id: 2, cat: 'hortifruti', n: 'Tomate Italiano',        u: '500g',          p: 7.99,  was: null,  tag: 'Fresco' },
+  { id: 3, cat: 'hortifruti', n: 'Alface Crespa',          u: 'unidade',       p: 3.49,  was: null,  tag: null },
+  { id: 4, cat: 'hortifruti', n: 'Maçã Fuji',              u: 'bandeja 1kg',   p: 12.90, was: 15.90, tag: '−18%' },
+  { id: 5, cat: 'padaria',    n: 'Pão Francês',            u: 'kg',            p: 18.90, was: null,  tag: null },
+  { id: 6, cat: 'padaria',    n: 'Croissant Manteiga',     u: 'unidade · 80g', p: 6.90,  was: null,  tag: 'Novo' },
+  { id: 7, cat: 'padaria',    n: 'Pão de Forma Integral',  u: '500g',          p: 9.49,  was: null,  tag: null },
+  { id: 8, cat: 'laticinios', n: 'Leite Integral Italac',  u: '1L',            p: 4.89,  was: 6.99,  tag: '−30%' },
+  { id: 9, cat: 'laticinios', n: 'Queijo Mussarela Fatiado',u:'150g',          p: 14.90, was: null,  tag: null },
+  { id:10, cat: 'laticinios', n: 'Iogurte Natural',        u: '170g',          p: 3.79,  was: null,  tag: null },
+  { id:11, cat: 'acougue',    n: 'Picanha Bovina',         u: 'kg',            p: 89.90, was: null,  tag: null },
+  { id:12, cat: 'acougue',    n: 'Peito de Frango',        u: 'kg',            p: 24.90, was: 29.90, tag: '−16%' },
+  { id:13, cat: 'bebidas',    n: 'Suco de Laranja Natural',u: '900ml',         p: 12.49, was: null,  tag: null },
+  { id:14, cat: 'bebidas',    n: 'Água Mineral',           u: '1,5L',          p: 2.49,  was: null,  tag: null },
+  { id:15, cat: 'bebidas',    n: 'Cerveja Heineken Long Neck',u:'330ml',       p: 6.99,  was: null,  tag: null },
+  { id:16, cat: 'mercearia',  n: 'Arroz Tio João',         u: '5kg',           p: 32.90, was: 37.90, tag: '−13%' },
+  { id:17, cat: 'mercearia',  n: 'Feijão Carioca Camil',   u: '1kg',           p: 9.49,  was: null,  tag: null },
+  { id:18, cat: 'mercearia',  n: 'Azeite Português',       u: '500ml',         p: 29.90, was: null,  tag: null },
+  { id:19, cat: 'congelados', n: 'Pizza Sadia 4 Queijos',  u: '460g',          p: 19.90, was: null,  tag: null },
+  { id:20, cat: 'limpeza',    n: 'Sabão Líquido Ypê',      u: '3L',            p: 24.90, was: null,  tag: 'Pop' },
+];
