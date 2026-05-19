@@ -6,7 +6,7 @@ import type { DesignSystemIndex } from "./indexer.js";
 import { registerTools } from "./tools/index.js";
 import { timingSafeEqual } from "node:crypto";
 
-const VERSION = "0.1.0";
+const VERSION = "0.3.0";
 
 function makeMcpServer(index: DesignSystemIndex): McpServer {
   const server = new McpServer({
